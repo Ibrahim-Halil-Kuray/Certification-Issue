@@ -7,8 +7,10 @@ import Form from './components/Form';
 function App() {
   return (
     <main className="App">
+    
       <Form />
       {/* <Certificate pdf={pdf} img={img}/> */}
+
     </main>
   );
 }
