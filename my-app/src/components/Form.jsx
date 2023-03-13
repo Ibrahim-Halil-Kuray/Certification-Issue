@@ -1,6 +1,10 @@
 import React, { useState } from 'react';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
-function Form() {
+
+function Form({ onSubmit }) {
+
   const [formData, setFormData] = useState(
         {
             firstName: '',
@@ -10,8 +14,9 @@ function Form() {
             issuer: ''
         });
 
+  const navigate = useNavigate();
 
-  const handleChange = (event) => {
+  const handleInputChange = (event) => {
     const { name, value} = event.target;
 
     setFormData((prevFormData) => (
@@ -21,14 +26,20 @@ function Form() {
         }));
   };
 
-
   const handleSubmit = (event) => {
     event.preventDefault();
     // Here you can do something with the form data, like submitting it to a server
-    console.log(formData);
+    axios
+      .post("api link", formData)
+      .then((res) => {
+        console.log(res.formData)
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+      onSubmit(formData);
+      navigate('/newInsert');
   };
-
-
 
   return (
     <form 
@@ -47,7 +58,7 @@ function Form() {
           type="text"
           name="firstName"
           value={formData.firstName}
-          onChange={handleChange}
+          onChange={handleInputChange}
         />
       </div>
 
@@ -62,7 +73,7 @@ function Form() {
           type="text"
           name="lastName"
           value={formData.lastName}
-          onChange={handleChange}
+          onChange={handleInputChange}
         />
       </div>
 
@@ -76,7 +87,7 @@ function Form() {
           id="contribution"
           name="contribution"
           value={formData.contribution}
-          onChange={handleChange}
+          onChange={handleInputChange}
         />
       </div>
       
@@ -91,7 +102,7 @@ function Form() {
           type="date"
           name="date"
           value={formData.date}
-          onChange={handleChange}
+          onChange={handleInputChange}
         />
       </div>
 
@@ -106,7 +117,7 @@ function Form() {
           type="text"
           name="issuer"
           value={formData.issuer}
-          onChange={handleChange}
+          onChange={handleInputChange}
         />
       </div>
       
