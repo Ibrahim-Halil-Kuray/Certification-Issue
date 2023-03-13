@@ -44,7 +44,7 @@ function Form({ onSubmit }) {
   return (
     <form 
         onSubmit={handleSubmit} 
-        className="max-w-md mx-auto bg-white rounded-lg overflow-hidden shadow-md p-6"
+        className="max-w-md mx-auto bg-green-100 rounded-lg overflow-hidden shadow-md p-6"
     >
         
       <div className="mb-4">
