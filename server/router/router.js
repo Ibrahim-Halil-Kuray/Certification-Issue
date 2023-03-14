@@ -6,7 +6,7 @@ const Participant = require('../db-models/participants');
 router.get('/books', async (req, res) => {
     try {
       const books = await Participant.find({});
-      res.send(books);
+      res.status(200).send(books);
     } catch (err) {
       console.error(err);
       res.status(500).send('Error fetching books');
@@ -24,20 +24,22 @@ router.get('/books/:id', async (req, res) => {
         res.send(book);
       }
     } catch (err) {
-      console.error(err);
+      console.log(err);
       res.status(500).send('Error fetching book');
     }
   });
 
 //Post
-router.post('/post-user', (req, res) => {
-const newParticipant = new Participant({
+router.post('/add-participant', (req, res) => {
+
+  const newParticipant = new Participant({
     firstName: req.body.firstName,
     lastName: req.body.lastName,
     contribution: req.body.contribution,
     date: req.body.date,
     issuer: req.body.issuer,
 });
+
 newParticipant.save().then((participant) => res.json(participant));
 });
 
