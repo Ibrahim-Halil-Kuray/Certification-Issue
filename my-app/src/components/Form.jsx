@@ -30,7 +30,7 @@ function Form({ onSubmit }) {
     event.preventDefault();
     // Here you can do something with the form data, like submitting it to a server
     axios
-      .post("api link", formData)
+      .post("http://localhost:8081/api/items/post-user", formData)
       .then((res) => {
         console.log(res.formData)
       })

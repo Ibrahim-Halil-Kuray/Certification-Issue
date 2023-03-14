@@ -1,11 +1,8 @@
 const express = require('express');
 const router = express.Router();
-const Joi = require('Joi');
-const controller = require('../controller/participant')
-const validate = require('../middleware/validate');
 const Participant = require('../db-models/participants');
 
-
+//Get all
 router.get('/books', async (req, res) => {
     try {
       const books = await Participant.find({});
@@ -16,7 +13,7 @@ router.get('/books', async (req, res) => {
     }
   });
 
-
+//Get one
 router.get('/books/:id', async (req, res) => {
     const bookId = req.params.id;
     try {
@@ -32,7 +29,8 @@ router.get('/books/:id', async (req, res) => {
     }
   });
 
-router.post('/createProject', (req, res) => {
+//Post
+router.post('/post-user', (req, res) => {
 const newParticipant = new Participant({
     firstName: req.body.firstName,
     lastName: req.body.lastName,

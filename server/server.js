@@ -22,7 +22,8 @@ mongoose
 const PORT = process.env.PORT || 8081;
 
 
-app.use("/api/items", require('./router/router'))
+app.use("/api/items", router)
+
 app.listen(PORT, () => {
   console.log(`Server listening on port ${PORT}`);
 });

@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 // Create Schema
-const ProjectSchema = new Schema({
+const ParticipantsSchema = new Schema({
   firstName: {
     type: String,
     required: true,
@@ -18,6 +18,7 @@ const ProjectSchema = new Schema({
   },
   date: {
     type: Date,
+    required: true,
     default: Date.now,
   },
   issuer: {
@@ -26,4 +27,4 @@ const ProjectSchema = new Schema({
   },
 });
 
-module.exports = mongoose.model('Participants', ProjectSchema);
+module.exports = mongoose.model('Participants', ParticipantsSchema);
