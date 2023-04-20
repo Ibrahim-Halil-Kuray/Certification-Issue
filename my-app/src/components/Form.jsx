@@ -1,43 +1,55 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import Navbar from "./Navbar";
 
-function Form() {
-  const [formData, setFormData] = useState(
-        {
-            firstName: '',
-            lastName: '',
-            contribution: '',
-            date: '',
-            issuer: ''
-        });
+function Form({ onSubmit }) {
+  const [formData, setFormData] = useState({
+    firstName: "",
+    lastName: "",
+    contribution: "",
+    date: "",
+    issuer: "",
+  });
 
+  const navigate = useNavigate();
 
-  const handleChange = (event) => {
-    const { name, value} = event.target;
+  const handleInputChange = (event) => {
+    const { name, value } = event.target;
 
-    setFormData((prevFormData) => (
-        {
-            ...prevFormData,
-            [name]: value
-        }));
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      [name]: value,
+    }));
   };
-
 
   const handleSubmit = (event) => {
     event.preventDefault();
     // Here you can do something with the form data, like submitting it to a server
-    console.log(formData);
+    axios
+      .post("http://localhost:8081/api/items/add-participant", formData)
+      .then((res) => {
+        console.log(res.formData);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+    onSubmit(formData);
+    navigate("/new-insert");
   };
 
-
-
   return (
-    <form 
-        onSubmit={handleSubmit} 
-        className="max-w-md mx-auto bg-white rounded-lg overflow-hidden shadow-md p-6"
+    <main>
+      <Navbar/>
+      <form
+      onSubmit={handleSubmit}
+      className="max-w-md mx-auto bg-green-100 rounded-lg overflow-hidden shadow-md p-6"
     >
-        
       <div className="mb-4">
-        <label className="block text-gray-700 font-bold mb-2" htmlFor="firstName">
+        <label
+          className="block text-gray-700 font-bold mb-2"
+          htmlFor="firstName"
+        >
           First name:
         </label>
 
@@ -47,12 +59,16 @@ function Form() {
           type="text"
           name="firstName"
           value={formData.firstName}
-          onChange={handleChange}
+          onChange={handleInputChange}
+          required
         />
       </div>
 
       <div className="mb-4">
-        <label className="block text-gray-700 font-bold mb-2" htmlFor="lastName">
+        <label
+          className="block text-gray-700 font-bold mb-2"
+          htmlFor="lastName"
+        >
           Last name:
         </label>
 
@@ -62,12 +78,16 @@ function Form() {
           type="text"
           name="lastName"
           value={formData.lastName}
-          onChange={handleChange}
+          onChange={handleInputChange}
+          required
         />
       </div>
 
       <div className="mb-4">
-        <label className="block text-gray-700 font-bold mb-2" htmlFor="contribution">
+        <label
+          className="block text-gray-700 font-bold mb-2"
+          htmlFor="contribution"
+        >
           Contribution:
         </label>
 
@@ -76,10 +96,11 @@ function Form() {
           id="contribution"
           name="contribution"
           value={formData.contribution}
-          onChange={handleChange}
+          onChange={handleInputChange}
+          required
         />
       </div>
-      
+
       <div className="mb-4">
         <label className="block text-gray-700 font-bold mb-2" htmlFor="date">
           Date:
@@ -91,7 +112,8 @@ function Form() {
           type="date"
           name="date"
           value={formData.date}
-          onChange={handleChange}
+          onChange={handleInputChange}
+          required
         />
       </div>
 
@@ -106,10 +128,11 @@ function Form() {
           type="text"
           name="issuer"
           value={formData.issuer}
-          onChange={handleChange}
+          onChange={handleInputChange}
+          required
         />
       </div>
-      
+
       <div className="flex justify-center">
         <button
           className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
@@ -119,6 +142,7 @@ function Form() {
         </button>
       </div>
     </form>
+    </main>
   );
 }
 
